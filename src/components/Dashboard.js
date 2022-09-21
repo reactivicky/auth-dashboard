@@ -20,8 +20,8 @@ const Dashboard = ({ setLoading }) => {
 	const [sidebarOpen, setSidebarOpen] = useState(true);
 	const [selectedFile, setSelectedFile] = useState({ id: "" });
 	const [selectedFileUrl, setSelectedFileUrl] = useState("");
-	const control = useAnimationControls()
-	const dashboardControl = useAnimationControls()
+	const control = useAnimationControls();
+	const dashboardControl = useAnimationControls();
 	const [selectedLink, setSelectedLink] = useState({
 		name: "My Tasks",
 		id: 1,
@@ -54,20 +54,20 @@ const Dashboard = ({ setLoading }) => {
 	useEffect(() => {
 		if (sidebarOpen) {
 			control.start({
-				width: '250px'
-			})
+				width: "250px",
+			});
 			dashboardControl.start({
-				gridTemplateColumns: "250px auto"
-			})
+				gridTemplateColumns: "250px auto",
+			});
 		} else {
 			control.start({
-				width: '75px'
-			})
+				width: "75px",
+			});
 			dashboardControl.start({
-				gridTemplateColumns: "75px auto"
-			})
+				gridTemplateColumns: "75px auto",
+			});
 		}
-	}, [sidebarOpen, control, dashboardControl])
+	}, [sidebarOpen, control, dashboardControl]);
 
 	const handleLogout = () => {
 		localStorage.removeItem("missanToken");
@@ -107,7 +107,7 @@ const Dashboard = ({ setLoading }) => {
 			<S.Sidebar animate={control}>
 				{sidebarOpen ? (
 					<S.MinimizeButton
-						sidebarOpen={sidebarOpen}
+						sidebaropen={sidebarOpen.toString()}
 						whileTap={{ scale: 0.9 }}
 						onClick={() => setSidebarOpen(false)}
 					>
@@ -115,7 +115,7 @@ const Dashboard = ({ setLoading }) => {
 					</S.MinimizeButton>
 				) : (
 					<S.MinimizeButton
-						sidebarOpen={sidebarOpen}
+						sidebaropen={sidebarOpen.toString()}
 						whileTap={{ scale: 0.9 }}
 						onClick={() => setSidebarOpen(true)}
 					>
@@ -130,7 +130,7 @@ const Dashboard = ({ setLoading }) => {
 								onClick={() => setSelectedLink(link)}
 								title={link.name}
 							>
-								<S.SidebarLinkSpan sidebarOpen={sidebarOpen}>
+								<S.SidebarLinkSpan sidebaropen={sidebarOpen.toString()}>
 									{link.icon}
 									{sidebarOpen && link.name}
 								</S.SidebarLinkSpan>

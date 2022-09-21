@@ -47,7 +47,7 @@ export const MinimizeButton = styled(motion.button)`
   border: none;
   background-color: transparent;
   display: flex;
-  align-self: ${({sidebarOpen}) => sidebarOpen ? "flex-end" : "center"};
+  align-self: ${({sidebaropen}) => sidebaropen === "true" ? "flex-end" : "center"};
   margin-bottom: 1rem;
 `
 
@@ -69,7 +69,7 @@ export const SidebarLinkSpan = styled.span`
   display: flex;
   align-items: center;
   gap: 1rem;
-  justify-content: ${({sidebarOpen}) => sidebarOpen ? "flex-start" : "center"};;
+  justify-content: ${({sidebaropen}) => sidebaropen === "true" ? "flex-start" : "center"};;
 `;
 
 export const Background = styled(motion.div)`
@@ -88,7 +88,7 @@ export const Workspace = styled.main`
 `;
 
 export const Files = styled.div`
-  padding: 1rem;
+  padding: 1rem 1rem 1rem 0;
 
   h2 {
     font-size: 2rem;
