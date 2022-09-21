@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useMemo } from "react";
 import { useTable } from "react-table";
 import axios from "axios";
-import * as S from '../styles/Table.styled'
+import * as S from "../styles/Table.styled";
 
 const TableComponent = ({ setLoading, selectedFile, setSelectedFile }) => {
 	const [fileData, setFileData] = useState([]);
@@ -16,6 +16,14 @@ const TableComponent = ({ setLoading, selectedFile, setSelectedFile }) => {
 			{
 				Header: "File Name",
 				accessor: "name",
+				Cell: ({ value }) => {
+					return (
+						<S.CheckboxContainer>
+							<input type="checkbox" checked={selectedFile.name === value} />
+							<span>{value}</span>
+						</S.CheckboxContainer>
+					);
+				},
 			},
 			{
 				Header: "Status",
@@ -30,7 +38,7 @@ const TableComponent = ({ setLoading, selectedFile, setSelectedFile }) => {
 				accessor: "assignedOn",
 			},
 		],
-		[]
+		[selectedFile.name]
 	);
 
 	useEffect(() => {
@@ -113,7 +121,7 @@ const TableComponent = ({ setLoading, selectedFile, setSelectedFile }) => {
 						assignedOn: file.Attributes.find(
 							(attr) => attr.DisplayName === "Assigned On"
 						).Value,
-						id: file.Id
+						id: file.Id,
 					};
 				});
 				setFileData(fileData);

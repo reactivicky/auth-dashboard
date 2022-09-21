@@ -88,7 +88,7 @@ export const Workspace = styled.main`
 `;
 
 export const Files = styled.div`
-  padding: 1rem 1rem 1rem 0;
+  padding: 1rem;
 
   h2 {
     font-size: 2rem;
@@ -103,4 +103,5 @@ export const PDFContainer = styled.div`
 	justify-content: center;
 	align-items: center;
 	height: 100%;
+	border: 1px solid rgba(0, 0, 0, .1);
 `;
