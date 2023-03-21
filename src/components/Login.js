@@ -1,10 +1,8 @@
 import { useState } from 'react'
 import { useForm } from "react-hook-form";
-import { encode as base64_encode } from "base-64";
 import { useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import axios from "axios";
 import * as S from "../styles/Login.styled";
 
 const schema = yup
@@ -26,23 +24,14 @@ const Login = ({ setLoading }) => {
 	} = useForm({
 		resolver: yupResolver(schema),
 	});
-	const onSubmit = async (data) => {
-		const encodedString = base64_encode(
-			`${data.domain}\\${data.username}:${data.password}`
-		);
+	const onSubmit = async () => {
 		try {
 			setLoading(true);
-			const token = await axios.get(
-				"https://dms.missancomputer.com:8081/windream.web.api/authentication/GetAuthenticationToken",
-				{
-					headers: {
-						Authorization: "Basic " + encodedString,
-					},
-				}
-			);
-			setLoading(false);
-			localStorage.setItem("missanToken", token.data.Token);
-			navigate("/dashboard");
+			setTimeout(() => {
+				setLoading(false);
+				localStorage.setItem("missanToken", "token");
+				navigate("/dashboard");
+			}, 2000)
 		} catch (e) {
 			console.log(e);
 			setLoading(false);

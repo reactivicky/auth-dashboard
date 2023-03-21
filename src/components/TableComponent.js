@@ -41,98 +41,98 @@ const TableComponent = ({ setLoading, selectedFile, setSelectedFile }) => {
 		[selectedFile.name]
 	);
 
-	useEffect(() => {
-		const fetchData = async () => {
-			try {
-				setLoading(true);
-				const token = localStorage.getItem("missanToken");
-				const headers = {
-					Authorization: "Bearer " + token,
-					Accept: "application/json",
-				};
-				const userDetails = await axios.get(
-					"https://dms.missancomputer.com:8081/windream.web.api/authentication/IsValidUser",
-					{
-						headers,
-					}
-				);
-				const payload = {
-					Mode: 1,
-					Entity: 1,
-					Conditions: [
-						{
-							Column: "szText03",
-							Name: "szText03",
-							Value: userDetails.data.UserName,
-							SearchOperator: 1,
-							AutoWildcards: false,
-							SearchRelation: 1,
-							LeftBrackets: 1,
-							RightBrackets: 0,
-						},
-						{
-							Column: "blBool00",
-							Name: "Completed",
-							Value: null,
-							SearchOperator: 1,
-							AutoWildcards: false,
-							SearchRelation: 1,
-							LeftBrackets: 0,
-							RightBrackets: 1,
-						},
-						{
-							Column: "dwFlags",
-							Value: 2048,
-							SearchOperator: 9,
-						},
-					],
-					Sorting: {
-						AttributeName: "szLongName",
-						Direction: 0,
-					},
-					AttributeFlags: 0,
-					Values: [
-						"szLongName",
-						"szText03",
-						"szText04",
-						"szText02",
-						"szText26",
-						"decTimeStamp00",
-					],
-					Limit: 0,
-				};
+	// useEffect(() => {
+	// 	const fetchData = async () => {
+	// 		try {
+	// 			setLoading(true);
+	// 			const token = localStorage.getItem("missanToken");
+	// 			const headers = {
+	// 				Authorization: "Bearer " + token,
+	// 				Accept: "application/json",
+	// 			};
+	// 			const userDetails = await axios.get(
+	// 				"https://dms.missancomputer.com:8081/windream.web.api/authentication/IsValidUser",
+	// 				{
+	// 					headers,
+	// 				}
+	// 			);
+	// 			const payload = {
+	// 				Mode: 1,
+	// 				Entity: 1,
+	// 				Conditions: [
+	// 					{
+	// 						Column: "szText03",
+	// 						Name: "szText03",
+	// 						Value: userDetails.data.UserName,
+	// 						SearchOperator: 1,
+	// 						AutoWildcards: false,
+	// 						SearchRelation: 1,
+	// 						LeftBrackets: 1,
+	// 						RightBrackets: 0,
+	// 					},
+	// 					{
+	// 						Column: "blBool00",
+	// 						Name: "Completed",
+	// 						Value: null,
+	// 						SearchOperator: 1,
+	// 						AutoWildcards: false,
+	// 						SearchRelation: 1,
+	// 						LeftBrackets: 0,
+	// 						RightBrackets: 1,
+	// 					},
+	// 					{
+	// 						Column: "dwFlags",
+	// 						Value: 2048,
+	// 						SearchOperator: 9,
+	// 					},
+	// 				],
+	// 				Sorting: {
+	// 					AttributeName: "szLongName",
+	// 					Direction: 0,
+	// 				},
+	// 				AttributeFlags: 0,
+	// 				Values: [
+	// 					"szLongName",
+	// 					"szText03",
+	// 					"szText04",
+	// 					"szText02",
+	// 					"szText26",
+	// 					"decTimeStamp00",
+	// 				],
+	// 				Limit: 0,
+	// 			};
 
-				const res = await axios.post(
-					"https://dms.missancomputer.com:8081/windream.web.api/search/Search",
-					payload,
-					{
-						headers,
-					}
-				);
-				const fileData = res.data.Result.map((file) => {
-					return {
-						name: file.Name,
-						status: file.Attributes.find(
-							(attr) => attr.DisplayName === "Status"
-						).Value,
-						assignedBy: file.Attributes.find(
-							(attr) => attr.DisplayName === "Assigned By"
-						).Value,
-						assignedOn: file.Attributes.find(
-							(attr) => attr.DisplayName === "Assigned On"
-						).Value,
-						id: file.Id,
-					};
-				});
-				setFileData(fileData);
-				setLoading(false);
-			} catch (e) {
-				console.log(e);
-				setLoading(false);
-			}
-		};
-		fetchData();
-	}, []);
+	// 			const res = await axios.post(
+	// 				"https://dms.missancomputer.com:8081/windream.web.api/search/Search",
+	// 				payload,
+	// 				{
+	// 					headers,
+	// 				}
+	// 			);
+	// 			const fileData = res.data.Result.map((file) => {
+	// 				return {
+	// 					name: file.Name,
+	// 					status: file.Attributes.find(
+	// 						(attr) => attr.DisplayName === "Status"
+	// 					).Value,
+	// 					assignedBy: file.Attributes.find(
+	// 						(attr) => attr.DisplayName === "Assigned By"
+	// 					).Value,
+	// 					assignedOn: file.Attributes.find(
+	// 						(attr) => attr.DisplayName === "Assigned On"
+	// 					).Value,
+	// 					id: file.Id,
+	// 				};
+	// 			});
+	// 			setFileData(fileData);
+	// 			setLoading(false);
+	// 		} catch (e) {
+	// 			console.log(e);
+	// 			setLoading(false);
+	// 		}
+	// 	};
+	// 	fetchData();
+	// }, []);
 
 	const tableInstance = useTable({ columns, data: fileData });
 
